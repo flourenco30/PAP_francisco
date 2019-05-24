@@ -61,6 +61,9 @@
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>					
 					</div>
 					<div class="container-login100-form-btn">
+							<a class="login100-form-btn" href="/" style="margin-right: 30px;text-decoration: none;">
+								Back
+							</a>	
 						<button class="login100-form-btn" type="submit">
 							Registar
 						</button>

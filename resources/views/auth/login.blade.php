@@ -48,16 +48,25 @@
 					</div>
 
 					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" {{ old('remember') ? 'checked' : '' }}>
-						<label class="label-checkbox100" for="ckb1">
-							Remember me
+						<input class="input-checkbox100" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+						<label class="label-checkbox100" for="remember">
+							{{ __('Lembrar-me') }}
 						</label>
 					</div>
 
+					<div class="contact100-form-checkbox">
+						<a href="/register" class="label" style="text-decoration: none;color: white;">
+							Não tem conta? Registe-se agora!
+						</a>
+					</div>
+
 					<div class="container-login100-form-btn">
+						<a class="login100-form-btn" href="/" style="margin-right: 30px;text-decoration: none;">
+							Back
+						</a>
 						<button class="login100-form-btn" type="submit">
 							Login
-          </button>
+						</button>
 					</div>
 				</form>
 			</div>

@@ -53,7 +53,7 @@
           <li>
             <a href="#" data-toggle="dropdown" role="button" id="dropdown-style" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle fa-2x"></i>&nbsp;&nbsp;<span style="position: relative;top: -4px;">{{ Auth::user()->name }}</span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Perfil</a></li>
+              <li><a data-toggle="modal" data-target="#perfilModal">Perfil</a></li>
               <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>Log Out</a></li>
@@ -195,7 +195,12 @@
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Limpeza de vidros</li>
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Hidratante de pneus</li>
                 </ul>
-                <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @auth
+                <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                @endauth
+                @guest
+                <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @endguest
               </div>
             </div>
           </div>
@@ -215,7 +220,12 @@
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Hidratante de pneus</li>
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Tratamento plásticos interiores</li>
                 </ul>
-                <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @auth
+                <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                @endauth
+                @guest
+                <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @endguest
               </div>
             </div>  
           </div>
@@ -233,7 +243,12 @@
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Limpeza do foro do tejadilho</li>
                   <li><span class="fa-li"><i class="fas fa-check"></i></span>Lavagem e acondicionamento dos tapetes e alcatifas</li>
                 </ul>
-                <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @auth
+                  <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                @endauth
+                @guest
+                  <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                @endguest
               </div>
             </div>
           </div>
@@ -249,7 +264,12 @@
                     <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Lavagem Manual</strong></li>
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>condicionamento de plásticos e vinil</li>
                   </ul>
-                  <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @auth
+                    <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                  @endauth
+                  @guest
+                    <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @endguest
                 </div>
               </div>
             </div>
@@ -266,7 +286,12 @@
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>10 pontos de controlo</li>
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>Mão de obra incluida</li>
                   </ul>
-                  <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @auth
+                    <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                  @endauth
+                  @guest
+                    <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @endguest
                 </div>
               </div>  
             </div>
@@ -284,7 +309,12 @@
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>Manutenção personalizada de acordo com as prescrições do construtor</li>
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>Mão de obra incluida</li>
                   </ul>
-                  <a href="/login.html" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @auth
+                    <a class="btn btn-block btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal">AGENDAR</a>
+                  @endauth
+                  @guest
+                    <a href="/login" class="btn btn-block btn-primary text-uppercase">AGENDAR</a>
+                  @endguest
                 </div>
               </div>
             </div>
@@ -402,6 +432,126 @@
       </div>
     </div>
   </footer><!-- #footer -->
+
+
+  <!--===============================
+      Modal Form Agendamento
+  ================================-->
+      <!-- Modal -->
+    <div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="agendaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Agendamento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Nome: </label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control" id="staticName" value="{{ Auth::user()->name }}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Data<span style="color: red;">*</span>:</label>
+                <div class="col-sm-4">
+                  <input type="date" class="form-control" id="inputDataHora">
+                </div>
+                <label for="inputPassword" class="col-sm-2 col-form-label">Hora<span style="color: red;">*</span>:</label>
+                <div class="col-sm-4">
+                  <div class="row">
+                    <select class="form-control col-sm-3" id="sel1" style="margin-right: 5px;">
+                      <option value=1>8</option>
+                      <option value=2>9</option>
+                      <option value=3>10</option>
+                      <option value=4>11</option>
+                      <option value=5>12</option>
+                      <option value=6>13</option>
+                      <option value=7>14</option>
+                      <option value=8>15</option>
+                      <option value=9>16</option>
+                      <option value=10>17</option>
+                      <option value=11>18</option>
+                    </select>
+                    <span style="margin-right: 30px;margin-top: 3%;">h</span>
+                    <select class="form-control col-sm-3" id="sel1" style="margin-right: 5px;">
+                        <option>00</option>
+                        <option>30</option>
+                    </select>
+                    <span style="margin-top: 2%;">m</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Notas:</label>
+                <div class="col-sm-10">
+                  <textarea name="message" rows="10" cols="30" class="form-control" id="inputDataHora"></textarea>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Personalizar dados faturamento</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Enviar Pedido</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  <!--===============================
+    Modal Form Perfil
+  ================================-->
+  <!-- Modal -->
+  <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="perfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Perfil Utilizador</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="staticName" class="col-sm-2 col-form-label">Nome: </label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control" id="staticName" value="{{ Auth::user()->name }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Email: </label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control" id="staticEmail" value="{{ Auth::user()->email }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticNif" class="col-sm-2 col-form-label">NIF: </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="staticNif" value="{{ Auth::user()->nif_user }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticContact" class="col-sm-2 col-form-label">Contacto: </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="staticContact" value="{{ Auth::user()->contact }}">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
