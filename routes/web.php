@@ -23,10 +23,8 @@ Route::get('/', function () {
 //     return View('registo'); // Your Blade template name
 // });
 
-Route::get('/loggedin', function(){
-    return View('loggedin'); // Your Blade template name
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/dashboard', function(){
+    return view('admin.dashboard');
+})->middleware('admin');

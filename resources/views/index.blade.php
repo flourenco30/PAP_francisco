@@ -50,6 +50,9 @@
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#contact">Contactos</a></li>
           @auth
+          @if(Auth::user()->email == "admin@ferreira-auto.pt")
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          @endif
           <li>
             <a href="#" data-toggle="dropdown" role="button" id="dropdown-style" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle fa-2x"></i>&nbsp;&nbsp;<span style="position: relative;top: -4px;">{{ Auth::user()->name }}</span></a>
             <ul class="dropdown-menu">
@@ -74,7 +77,7 @@
   ============================-->
   <section id="hero">
     <div class="hero-container">
-      <h1>Ferreira <span style="color: #0099ff">Auto</span></h1>
+      <h1 id="titulo">Ferreira <span style="color: #0099ff">Auto</span></h1>
       <h2>Nós somos uma empresa especializada em serviços de lavagem automóvel.</h2>
       <a href="#servicos" class="btn-get-started">Agendar Serviço</a>
     </div>
@@ -319,11 +322,14 @@
               </div>
             </div>
             </div>
+              <div class="my_bt_custom">
+                  <button id="btcustom" class="button btn-block btn-primary text-uppercase ">Criar Serviço Personalizado</button>
+              </div>
             </div>
 
-          <div class="my_bt_readmore">
-							<button id="meubt" onclick="myFunction()" class="button btn-block btn-primary text-uppercase ">Ver Mais Serviços</button>
-					</div>
+            <div class="my_bt_readmore">
+                <button id="meubt" onclick="myFunction()" class="button btn-block btn-primary text-uppercase ">Ver Mais Serviços</button>
+            </div>
         </div>
       </div>
     </section>
@@ -388,6 +394,12 @@
               <div id="sendmessage">A sua mensagem foi enviada. Obrigado!</div>
               <div id="errormessage"></div>
               <form action="" method="post" role="form" class="contactForm">
+                @auth
+                <div class="form-group">
+                  <h2 sytle="text-shadow: 1px 1px #111;">Olá {{ Auth::user()->name }}!<h2>
+                </div>
+                @endauth
+                @guest
                 <div class="form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="O seu Nome" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validation"></div>
@@ -396,6 +408,7 @@
                   <input type="email" class="form-control" name="email" id="email" placeholder="O seu Email" data-rule="email" data-msg="Please enter a valid email" />
                   <div class="validation"></div>
                 </div>
+                @endguest
                 <div class="form-group">
                   <input type="text" class="form-control" name="subject" id="subject" placeholder="Assunto" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
                   <div class="validation"></div>
@@ -452,7 +465,7 @@
               <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Nome: </label>
                 <div class="col-sm-10">
-                  <input type="text" readonly class="form-control" id="staticName" value="{{ Auth::user()->name }}">
+                  <input type="text" readonly class="form-control" id="staticName">
                 </div>
               </div>
               <div class="form-group row">
@@ -494,7 +507,7 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Personalizar dados faturamento</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#perfilModal">Personalizar dados faturamento</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-primary">Enviar Pedido</button>
         </div>
@@ -520,25 +533,33 @@
             <div class="form-group row">
               <label for="staticName" class="col-sm-2 col-form-label">Nome: </label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="staticName" value="{{ Auth::user()->name }}">
+                @auth
+                  <input type="text" readonly class="form-control" id="staticName" value="{{Auth::user()->name}}">
+                @endauth
               </div>
             </div>
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Email: </label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="staticEmail" value="{{ Auth::user()->email }}">
+                @auth
+                  <input type="text" readonly class="form-control" id="staticEmail" value="{{Auth::user()->email}}">
+                @endauth
               </div>
             </div>
             <div class="form-group row">
               <label for="staticNif" class="col-sm-2 col-form-label">NIF: </label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="staticNif" value="{{ Auth::user()->nif_user }}">
+                @auth
+                  <input type="text" class="form-control" id="staticNif" value="{{Auth::user()->nif_user}}">
+                @endauth
               </div>
             </div>
             <div class="form-group row">
               <label for="staticContact" class="col-sm-2 col-form-label">Contacto: </label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="staticContact" value="{{ Auth::user()->contact }}">
+                @auth
+                  <input type="text" class="form-control" id="staticContact" value="{{Auth::user()->contacto}}">
+                @endauth
               </div>
             </div>
           </form>
