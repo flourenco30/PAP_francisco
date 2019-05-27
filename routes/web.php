@@ -28,3 +28,5 @@ Auth::routes();
 Route::resource('/admin/dashboard', 'AdminController')->middleware('admin');
 
 Route::post('/alter-user', 'AdminController@updateUser');
+
+Route::post('/agendar', 'AdminController@storeAgendamento');

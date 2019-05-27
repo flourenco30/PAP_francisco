@@ -97,4 +97,25 @@ class AdminController extends Controller
         $request->session()->flash('status', 'Your account has been updated!');
         return Redirect::to('/');
     }
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAgendamento(Request $request)
+    {
+        $input = $request->all();
+
+        $agenda = Auth::user();
+
+        $totalHoras = request()->input('hora').request()->input('minutos');
+
+        $agenda->Data  = request()->input('Data');
+        $agenda->Hora  = $totalHoras;
+        $agenda->Notas = request()->input('Notas');
+        $agenda->user_id = Auth::user()->id;
+
+    }
 }
