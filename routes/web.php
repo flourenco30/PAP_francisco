@@ -25,6 +25,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin/dashboard', function(){
-    return view('admin.dashboard');
-})->middleware('admin');
+Route::resource('/admin/dashboard', 'AdminController')->middleware('admin');
+
+Route::post('/alter-user', 'AdminController@updateUser');

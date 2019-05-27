@@ -45,13 +45,10 @@
       </div>
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#hero">Página Inicial</a></li>
-          <li><a href="#about">Sobre Nós</a></li>
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#contact">Contactos</a></li>
           @auth
           @if(Auth::user()->email == "admin@ferreira-auto.pt")
-          <li><a href="#contact">Dashboard</a></li>
+          <li class="menu-active"><a href="#contact">Dashboard</a></li>
+          <li><a href="/">WebSite</a></li>
           @endif
           <li>
             <a href="#" data-toggle="dropdown" role="button" id="dropdown-style" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle fa-2x"></i>&nbsp;&nbsp;<span style="position: relative;top: -4px;">{{ Auth::user()->name }}</span></a>
@@ -74,39 +71,78 @@
 
   <main style="padding-top: 8%;padding-bottom:">
   <!--==========================
-    Tabela
+    Tabela Users
   ============================-->
+  <div class="container">
   <h1 style="text-align: center;">TABELA USERS</h1>
   <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Contacto</th>
+          <th scope="col">NIF</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+          @foreach($users as $user)
+          <tr>
+            <th style="font-weight:normal;">{{$user->id}}</th>
+            <th style="font-weight:normal;">{{$user->name}}</th>
+            <th style="font-weight:normal;">{{$user->email}}</th>
+            @if($user->contacto == "")
+            <th style="font-weight:normal;">Não Inseriu</th>
+            @else
+            <th style="font-weight:normal;">{{$user->contact}}</th>
+            @endif
+            @if($user->nif == "")
+            <th style="font-weight:normal;">Não Inseriu</th>
+            @else
+            <th style="font-weight:normal;">{{$user->nif}}</th>
+            @endif
+          </tr>
+          @endforeach
       </tbody>
     </table>
+  </div>
+
+  <!--==========================
+    Tabela Serviços
+  ============================-->
+  <div class="container">
+      <h1 style="text-align: center;margin-top: 10%;">TABELA SERVIÇOS</h1>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col">Contacto</th>
+              <th scope="col">NIF</th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach($users as $user)
+              <tr>
+                <th style="font-weight:normal;">{{$user->id}}</th>
+                <th style="font-weight:normal;">{{$user->name}}</th>
+                <th style="font-weight:normal;">{{$user->email}}</th>
+                @if($user->contacto == "")
+                <th style="font-weight:normal;">Não Inseriu</th>
+                @else
+                <th style="font-weight:normal;">{{$user->contact}}</th>
+                @endif
+                @if($user->nif == "")
+                <th style="font-weight:normal;">Não Inseriu</th>
+                @else
+                <th style="font-weight:normal;">{{$user->nif}}</th>
+                @endif
+              </tr>
+              @endforeach
+          </tbody>
+        </table>
+      </div>
 
   </main>
 

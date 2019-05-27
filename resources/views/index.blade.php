@@ -529,7 +529,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+        <form method="POST" action="{{url('/alter-user')}}">
+          @csrf
             <div class="form-group row">
               <label for="staticName" class="col-sm-2 col-form-label">Nome: </label>
               <div class="col-sm-10">
@@ -550,7 +551,7 @@
               <label for="staticNif" class="col-sm-2 col-form-label">NIF: </label>
               <div class="col-sm-10">
                 @auth
-                  <input type="text" class="form-control" id="staticNif" value="{{Auth::user()->nif_user}}">
+                  <input type="text" class="form-control" id="staticNif" name="nif" value="{{Auth::user()->nif}}">
                 @endauth
               </div>
             </div>
@@ -558,15 +559,15 @@
               <label for="staticContact" class="col-sm-2 col-form-label">Contacto: </label>
               <div class="col-sm-10">
                 @auth
-                  <input type="text" class="form-control" id="staticContact" value="{{Auth::user()->contacto}}">
+                  <input type="text" class="form-control" id="staticContact" name="contacto" value="{{Auth::user()->contacto}}">
                 @endauth
               </div>
             </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>  
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
         </div>
       </div>
     </div>
