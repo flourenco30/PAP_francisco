@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\User;
+use App\Caracteristica;
+use App\Servico;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -17,7 +20,9 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.dashboard', compact('users'));
+        $caracs = Caracteristica::all();
+        $servis = Servico::all();
+        return view('admin.dashboard', compact('users', 'caracs', 'servis'));
     }
 
     /**
@@ -117,5 +122,47 @@ class AdminController extends Controller
         $agenda->Notas = request()->input('Notas');
         $agenda->user_id = Auth::user()->id;
 
+    }
+
+       /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeCaracteristicas(Request $request)
+    {
+        $input = $request->all();
+        Caracteristica::create($input);
+        $carac = new Caracteristica();
+        return Redirect::to('/admin/dashboard');
+
+    }
+
+           /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeServico(Request $request)
+    {
+        $input = $request->all();
+        Servico::create($input);
+        $carac = new Servico();
+        return Redirect::to('/admin/dashboard');
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWeb()
+    {
+        $caracs = Caracteristica::all();
+        $servis = Servico::all();
+        return view('index', compact('caracs', 'servis'));
     }
 }

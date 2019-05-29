@@ -112,38 +112,53 @@
   ============================-->
   <div class="container">
       <h1 style="text-align: center;margin-top: 10%;">TABELA SERVIÇOS</h1>
+      <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#serviModal">Criar Serviço</button>
+      <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#serviCaracModal">Associar Caracteristica</button>
       <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Nome</th>
-              <th scope="col">Email</th>
-              <th scope="col">Contacto</th>
-              <th scope="col">NIF</th>
+              <th scope="col">Preço</th>
             </tr>
           </thead>
           <tbody>
-              @foreach($users as $user)
+              @foreach($servis as $servi)
               <tr>
-                <th style="font-weight:normal;">{{$user->id}}</th>
-                <th style="font-weight:normal;">{{$user->name}}</th>
-                <th style="font-weight:normal;">{{$user->email}}</th>
-                @if($user->contacto == "")
-                <th style="font-weight:normal;">Não Inseriu</th>
-                @else
-                <th style="font-weight:normal;">{{$user->contact}}</th>
-                @endif
-                @if($user->nif == "")
-                <th style="font-weight:normal;">Não Inseriu</th>
-                @else
-                <th style="font-weight:normal;">{{$user->nif}}</th>
-                @endif
+                <th style="font-weight:normal;">{{$servi->id}}</th>
+                <th style="font-weight:normal;">{{$servi->nome}}</th>
+                <th style="font-weight:normal;">{{$servi->preco}}€</th>
               </tr>
               @endforeach
           </tbody>
         </table>
       </div>
 
+        <!--==========================
+    Tabela Caracteristicas
+  ============================-->
+  <div class="container">
+      <h1 style="text-align: center;margin-top: 10%;">TABELA CARACTERISTICAS</h1>
+      <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#caracModal">Criar Caracteristica</button>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach($caracs as $carac)
+              <tr>
+                <th style="font-weight:normal;">{{$carac->id}}</th>
+                <th style="font-weight:normal;">{{$carac->desc}}</th>
+                <th style="font-weight:normal;">{{$carac->preco}}€</th>
+              </tr>
+              @endforeach
+          </tbody>
+        </table>
+      </div>
   </main>
 
 
@@ -159,6 +174,135 @@
   </footer><!-- #footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+  <!--===============================
+      Modal Form Caracteristica
+  ================================-->
+      <!-- Modal -->
+      <div class="modal fade" id="caracModal" tabindex="-1" role="dialog" aria-labelledby="caracModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Agendamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="{{url('/criar-carac')}}">
+                  @csrf
+                    <div class="form-group row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label">Descrição: </label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="staticName" name="desc">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Preço:</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="1" max="100" class="form-control" name="preco" id="inputDataHora">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Criar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <!--===============================
+      Modal Form Servico
+  ================================-->
+      <!-- Modal -->
+      <div class="modal fade" id="serviModal" tabindex="-1" role="dialog" aria-labelledby="serviModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Criar Serviço</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="{{url('/criar-servi')}}">
+                  @csrf
+                    <div class="form-group row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label">Nome: </label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="staticName" name="nome">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Preço:</label>
+                      <div class="col-sm-10">
+                        <input type="number" min="1" max="100" class="form-control" name="preco">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Criar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <!--===============================
+      Modal Form Servico
+  ================================-->
+      <!-- Modal -->
+      <div class="modal fade" id="serviCaracModal" tabindex="-1" role="dialog" aria-labelledby="serviCaracModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Criar Serviço</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="{{url('/')}}">
+                  @csrf
+                    <div class="form-group row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label">Serviço: </label>
+                      <div class="col-sm-10">
+                        <select class="form-control col-sm-12" id="sel1" style="margin-right: 5px;" name="hora">
+                          @foreach($servis as $servi)
+                            <option value={{$servi->id}}>{{$servi->nome}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Preço:</label>
+                      <div class="col-sm-10">
+                        @foreach($caracs as $carac)
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <input type="checkbox" aria-label="Radio button for following text input">
+                            </div>
+                          </div>
+                          <p class="form-control">{{$carac->preco . '€ - ' . $carac->desc}}</p>
+                        </div>
+                        @endforeach
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Criar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+          </div>
+      
 
   <!-- JavaScript Libraries -->
   <script src="../lib/jquery/jquery.min.js"></script>

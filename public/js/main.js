@@ -232,4 +232,18 @@ function myFunction() {
   }
 }
 
+var selectionCounter = 0
+function cloneSelect() {
+  var select = document.getElementById("sel4")
+  var clone = select.cloneNode(true)
+  if(selectionCounter<9){
+  var name = select.getAttribute("name") + selectionCounter++
+  clone.id = name
+  clone.setAttribute("name", name)
+  document.getElementById("selectContainer").appendChild(clone)
+  }else{
+    alert('Máximo de caracteristicas por serviço!');
+  }
+}
+
 

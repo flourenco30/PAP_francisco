@@ -16,6 +16,7 @@ class CreateServicosTable extends Migration
         Schema::create('servicos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
+            $table->integer('preco');
             $table->timestamps();
         });
     }

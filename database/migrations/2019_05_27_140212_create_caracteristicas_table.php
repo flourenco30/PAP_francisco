@@ -16,7 +16,7 @@ class CreateCaracteristicasTable extends Migration
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('desc');
-            $table->double('preco');
+            $table->integer('preco');
             $table->timestamps();
         });
     }
