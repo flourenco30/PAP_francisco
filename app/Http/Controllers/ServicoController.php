@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 
-class AdminController extends Controller
+class ServicoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::withTrashed()->get();
-        $caracs = Caracteristica::withTrashed()->get();
-        $servis = Servico::withTrashed()->get();
-        return view('admin.dashboard', compact('users', 'caracs', 'servis'));
+        //
     }
 
     /**
@@ -43,6 +40,9 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $input = $request->all();
+        Servico::create($input);
+        return Redirect::to('/admin/dashboard');
     }
 
     /**
@@ -64,6 +64,19 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -77,4 +90,24 @@ class AdminController extends Controller
         //
     }
 
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function assocCaracStore(Request $request)
+    {
+        $input = $request->all();
+
+        $servico = Servico::findOrFail($input['servico']);
+
+        foreach($input['checkedIds'] as $checkedId){
+            $carac = Caracteristica::findOrFail($checkedId);
+            if(!$servico->caracteristica()->find($carac->id))
+            $servico->caracteristica()->attach($carac->id);
+        }
+
+        $servico->save();
+    }
 }

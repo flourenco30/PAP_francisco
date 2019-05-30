@@ -13,7 +13,7 @@ class CreateCaracterisitcasServicoCustomTable extends Migration
      */
     public function up()
     {
-        Schema::create('carac_serviCustom', function (Blueprint $table) {
+        Schema::create('caracteristica_serviCustom', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('carac_id')->unsigned();
             $table->bigInteger('serviCustom_id')->unsigned();

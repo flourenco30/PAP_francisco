@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 
-class AdminController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::withTrashed()->get();
-        $caracs = Caracteristica::withTrashed()->get();
-        $servis = Servico::withTrashed()->get();
-        return view('admin.dashboard', compact('users', 'caracs', 'servis'));
+        //
     }
 
     /**
@@ -43,6 +40,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -64,6 +62,33 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $input = $request->all();
+
+        // $user= User::findOrFail(Auth::user()->id)->update($input);
+
+        // return redirect('/');
+
+        $user = Auth::user();
+    
+        $user->contacto = request()->input('contacto');
+        $user->nif = request()->input('nif');
+
+        $user->save();
+
+        $request->session()->flash('status', 'Your account has been updated!');
+        return Redirect::to('/');
     }
 
     /**
@@ -76,5 +101,4 @@ class AdminController extends Controller
     {
         //
     }
-
 }

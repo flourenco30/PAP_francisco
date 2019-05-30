@@ -13,14 +13,14 @@ class CreateCaracterisitcasServicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('carac_servi', function (Blueprint $table) {
+        Schema::create('caracteristica_servico', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('carac_id')->unsigned();
-            $table->bigInteger('servi_id')->unsigned();
+            $table->bigInteger('caracteristica_id')->unsigned();
+            $table->bigInteger('servico_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('carac_id')->references('id')->on('caracteristicas');
-            $table->foreign('servi_id')->references('id')->on('servicos');
+            $table->foreign('caracteristica_id')->references('id')->on('caracteristicas')->onDelete('restrict');
+            $table->foreign('servico_id')->references('id')->on('servicos')->onDelete('restrict');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateCaracterisitcasServicoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carac_servi');
+        Schema::dropIfExists('caracteristicas_servico');
     }
 }

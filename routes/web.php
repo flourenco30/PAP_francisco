@@ -11,24 +11,83 @@
 |
 */
 
-// Route::get('/login', function(){
-//     return View('login'); // Your Blade template name
-// });
-
-// Route::get('/register', function(){
-//     return View('registo'); // Your Blade template name
-// });
-
 Auth::routes();
 
-Route::get('/', 'AdminController@indexWeb');
+Route::get('/', 'HomePageController@index');
 
 Route::resource('/admin/dashboard', 'AdminController')->middleware('admin');
 
-Route::post('/alter-user', 'AdminController@updateUser');
+Route::post('/alter-user', 'UsersController@update');
 
-Route::post('/agendar', 'AdminController@storeAgendamento');
+Route::post('/criar-carac', 'CaracteristicasController@store');
 
-Route::post('/criar-carac', 'AdminController@storeCaracteristicas');
+Route::post('/criar-servi', 'ServicoController@store');
 
-Route::post('/criar-servi', 'AdminController@storeServico');
+
+Route::middleware(['admin'])->group(function(){
+    //Caracteristicas Ações
+    Route::get('/admin/caracteristicas/{caracteristica}/delete', function($carac){
+        $carac=App\Caracteristica::findOrFail($carac);
+        $carac->delete();
+        return back();
+    });
+    
+    Route::get('/admin/caracteristicas/{caracteristica}/force-delete', function($carac){
+        $carac=App\Caracteristica::withTrashed()->findOrFail($carac);
+        $carac->forceDelete();
+        return back();
+    });
+
+    Route::get('/admin/caracteristicas/{caracteristica}/restore', function($carac){
+        $carac=App\Caracteristica::withTrashed()->findOrFail($carac);
+        $carac->restore();
+        return back();
+    });
+});
+
+Route::middleware(['admin'])->group(function(){
+    //Servicos Ações
+    Route::get('/admin/servicos/{servico}/delete', function($servi){
+        $servi=App\Servico::findOrFail($servi);
+        $servi->delete();
+        return back();
+    });
+    
+    Route::get('/admin/servicos/{servico}/force-delete', function($servi){
+        $servi=App\Servico::withTrashed()->findOrFail($servi);
+        $servi->forceDelete();
+        return back();
+    });
+
+    Route::get('/admin/servicos/{servico}/restore', function($servi){
+        $servi=App\Servico::withTrashed()->findOrFail($servi);
+        $servi->restore();
+        return back();
+    });
+});
+
+Route::middleware(['admin'])->group(function(){
+    //User Ações
+    Route::get('/admin/users/{user}/delete', function($user){
+        $user=App\models\User::findOrFail($user);
+        $user->delete();
+        return back();
+    });
+    
+    Route::get('/admin/users/{user}/force-delete', function($user){
+        $user=App\models\User::withTrashed()->findOrFail($user);
+        $user->forceDelete();
+        return back();
+    });
+
+    Route::get('/admin/users/{user}/restore', function($user){
+        $user=App\models\User::withTrashed()->findOrFail($user);
+        $user->restore();
+        return back();
+    });
+});
+
+Route::post('/api/reg-agenda', 'AgendamentoController@store');
+
+Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
+

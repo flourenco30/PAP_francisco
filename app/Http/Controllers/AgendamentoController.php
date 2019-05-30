@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\models\User;
 use App\Caracteristica;
 use App\Servico;
+use App\Agendamento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
+use App\Rules\Exact;
 
-class AdminController extends Controller
+class AgendamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +21,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::withTrashed()->get();
-        $caracs = Caracteristica::withTrashed()->get();
-        $servis = Servico::withTrashed()->get();
-        return view('admin.dashboard', compact('users', 'caracs', 'servis'));
+        //
     }
 
     /**
@@ -42,7 +41,29 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
+        $input = $request->all();
+        $validatedData = $request->validate([
+            'data' => 'required|date',
+            'hora' => 'required|numeric|min:8|max:18',
+            'minutos' => ['required', 'numeric', new Exact],
+        ]);
+
+        
+        $agenda = new Agendamento();
+        $agenda->Data    = $validatedData['data'];
+        $agenda->Hora    = $validatedData['hora'].':'.$validatedData['minutos'].':'.'00';
+        $agenda->Notas   = $request['notas'];
+        $agenda->user_id = Auth::user()->id;
+        $agenda->servi_id = Servico::findOrFail($request['Id'])->id;
+
+        if($agenda->livre($agenda->Data, $agenda->Hora) == false){
+            return response('Já está!');
+        }
+
+        $agenda->save();
+
+        return response('work');
     }
 
     /**
@@ -64,6 +85,19 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -77,4 +111,7 @@ class AdminController extends Controller
         //
     }
 
+    function registarAgendamento(Request $request){
+        return response()->json($request->all(), 200);
+    }
 }

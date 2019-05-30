@@ -12,7 +12,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <form method="POST" action="{{url('/alter-user')}}">
+            <form method="POST" action="{{url('/user')}}">
               @csrf
                 <div class="form-group row">
                   <label for="staticName" class="col-sm-2 col-form-label">Nome: </label>
