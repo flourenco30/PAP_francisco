@@ -107,24 +107,5 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
-
-
-  <script>
-var price = asjdhdksja
-
-var items = [];
-
-    var teste = `@component('components.teste')
-      @slot('price')
-        ${ price }
-      @endslot
-    
-    @endcomponent`
-
-                $('#teste-teste').append(teste)
-
-                console.log('0here')
-  </script>
-
 </body>
 </html>

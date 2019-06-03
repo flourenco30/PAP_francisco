@@ -243,7 +243,7 @@ function cloneSelect() {
   document.getElementById("selectContainer").appendChild(clone)
   }else{
     alert('Máximo de caracteristicas por serviço!');
-  }
+  }    
 }
 
 

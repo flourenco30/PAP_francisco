@@ -31,7 +31,7 @@
                   <hr>
                   <ul class="fa-ul">
                     @foreach($servi->caracteristica as $carac)
-                      @if($carac->desc == 'Basic' | $carac->desc == 'Standard' )
+                      @if($carac->desc == 'Basic' || $carac->desc == 'Standard' || $carac->desc == 'Lavagem Manual')
                         <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>{{$carac->desc}}</strong></li>
                       @else
                         <li><span class="fa-li"><i class="fas fa-check"></i></span>{{$carac->desc}}</li>
@@ -70,11 +70,3 @@
         </div>
       </div>
     </section>
-
-    <script>
-      var Id=null;
-      function setAgendamento (id, nome){
-        Id = id;
-        document.getElementById("nome_servi").innerHTML=nome;
-      }
-    </script>

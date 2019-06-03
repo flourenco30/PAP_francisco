@@ -24,6 +24,12 @@ Route::post('/criar-carac', 'CaracteristicasController@store');
 Route::post('/criar-servi', 'ServicoController@store');
 
 
+Route::post('/api/reg-agenda', 'AgendamentoController@store');
+
+Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
+
+Route::post('/api/edit-carac', 'CaracteristicasController@update');
+
 Route::middleware(['admin'])->group(function(){
     //Caracteristicas Ações
     Route::get('/admin/caracteristicas/{caracteristica}/delete', function($carac){
@@ -86,8 +92,4 @@ Route::middleware(['admin'])->group(function(){
         return back();
     });
 });
-
-Route::post('/api/reg-agenda', 'AgendamentoController@store');
-
-Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
 

@@ -65,7 +65,6 @@ class CaracteristicasController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -75,9 +74,28 @@ class CaracteristicasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $rules = array(
+            'desc'       => 'required',
+            'preco'      => 'required|numeric',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+    
+        if ($validator->fails()) {
+            Session::flash('message', 'Erro ao atualizar a caracteristica!');
+            return Redirect::to('/admin');
+        } else {
+            // store
+            $carac = Caracteristica::findOrFail($id);
+            $carac->desc       = Input::get('desc');
+            $carac->preco      = Input::get('preco');
+            $carac->save();
+
+            // redirect
+            Session::flash('message', 'Caracteristica atualizada com sucesso!');
+            return Redirect::to('/admin');
+        }
     }
 
     /**

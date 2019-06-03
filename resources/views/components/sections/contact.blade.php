@@ -5,7 +5,7 @@
             <div class="container wow fadeInUp">
               <div class="section-header">
                 <h3 class="section-title">Contactos</h3>
-                <p class="section-description">Qualquer dúvida não exite, pergunte-nos!</p>
+                <p class="section-description">Qualquer dúvida não exite, contacte-nos!</p>
               </div>
             </div>
       

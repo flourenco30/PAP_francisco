@@ -2,7 +2,7 @@
       Modal Form Agendamento
   ================================-->
       <!-- Modal -->
-      <div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="agendaModalLabel" aria-hidden="true">
+      <div class="modal fade" id="agendaModal" tabindex="-1" role="dialog" aria-labelledby="agendaModalLabel" aria-hidden="true" data-target="agendaModal">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -12,7 +12,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="POST" onsubmit="regAgendamento(event)">
+                  <form method="POST" onsubmit="regAgendamento(event)" name="form1" id="form1">
                     @csrf
                       <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Nome: </label>
@@ -79,7 +79,10 @@
     var notas = document.getElementById("Notas").value;
 
     axios.post('/api/reg-agenda', { data, hora, minutos, notas, Id })
-      .then(res => console.log(res))
+      .then(function (res){
+        console.log(res);
+        documento.getElementById('form1').reset();
+      })
       .catch(err => console.log(err))
-  }
+    }
 </script>

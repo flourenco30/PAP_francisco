@@ -43,5 +43,5 @@ class User extends Authenticatable
 
     public function agendamentos(){
         return $this::hasMany('App\Agendamento','user_id'); 
-        }
+    }
 }

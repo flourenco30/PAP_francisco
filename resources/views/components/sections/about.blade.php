@@ -40,11 +40,11 @@
           <input type="radio" id="carousel-2" name="carousel[]">
           <input type="radio" id="carousel-3" name="carousel[]">
           <ul class="carousel__items">
-            <li class="carousel__item"><img src="https://image.delti.com/simg/landingpages/carwash.jpg" alt=""></li>
+            <li class="carousel__item"><img src="https://image.delti.com/simg/landingpages/carwash.jpg" alt="" width="100%"></li>
             <li class="carousel__item"><img
-                src="https://cdn.wd40company.eu/wd-40/pt-PT/uploads/2018/02/06170201/limpar-carro.jpeg" alt=""></li>
+                src="https://cdn.wd40company.eu/wd-40/pt-PT/uploads/2018/02/06170201/limpar-carro.jpeg" alt="" width="100%"></li>
             <li class="carousel__item"><img
-                src="https://bonopneus.com.br/wp-content/uploads/2019/02/servico-troca-de-oleo.jpg" alt=""></li>
+                src="https://bonopneus.com.br/wp-content/uploads/2019/02/servico-troca-de-oleo.jpg" alt="" width="100%"></li>
           </ul>
           <div class="carousel__prev">
             <label for="carousel-1"></label>

@@ -58,12 +58,12 @@ class AgendamentoController extends Controller
         $agenda->servi_id = Servico::findOrFail($request['Id'])->id;
 
         if($agenda->livre($agenda->Data, $agenda->Hora) == false){
-            return response('Já está!');
+            return response()->json(['success' => false, 'message' => 'Hora indisponível neste dia.'], 403);
         }
 
         $agenda->save();
 
-        return response('work');
+        return response()->json(['success' => true, 'message' => 'Agendamento marcado com sucesso.'], 201);
     }
 
     /**
