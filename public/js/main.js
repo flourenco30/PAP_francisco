@@ -232,6 +232,8 @@ function myFunction() {
   }
 }
 
+
+// Clone service select box
 var selectionCounter = 0
 function cloneSelect() {
   var select = document.getElementById("sel")

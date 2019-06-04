@@ -44,11 +44,12 @@ class AgendamentoController extends Controller
     {        
         $input = $request->all();
         $validatedData = $request->validate([
-            'data' => 'required|date',
+            'data' => 'required|date|after:yesterday',
             'hora' => 'required|numeric|min:8|max:18',
             'minutos' => ['required', 'numeric', new Exact],
         ]);
 
+        
         
         $agenda = new Agendamento();
         $agenda->Data    = $validatedData['data'];
@@ -58,7 +59,7 @@ class AgendamentoController extends Controller
         $agenda->servi_id = Servico::findOrFail($request['Id'])->id;
 
         if($agenda->livre($agenda->Data, $agenda->Hora) == false){
-            return response()->json(['success' => false, 'message' => 'Hora indisponível neste dia.'], 403);
+            return response()->json('Hora indisponível neste dia.', 403);
         }
 
         $agenda->save();

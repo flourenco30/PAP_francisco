@@ -11,7 +11,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="display: block;" id="body">
                   <form method="POST" onsubmit="regAgendamento(event)" name="form1" id="form1">
                     @csrf
                       <div class="form-group row">
@@ -36,7 +36,6 @@
                               <option value=10>10</option>
                               <option value=11>11</option>
                               <option value=12>12</option>
-                              <option value=13>13</option>
                               <option value=14>14</option>
                               <option value=15>15</option>
                               <option value=16>16</option>
@@ -65,13 +64,22 @@
                       </div>
                     </form>
                 </div>
+                <div class="modal-body" style="display: none;" id="message">
+                  <div class="alert alert-success" role="alert">
+                      Sucesso! Serviço agendado
+                  </div>
+                </div>
+                <div class="modal-body" style="display: none;" id="message-error">
+                  <div class="alert alert-danger" role="alert">
+                      <span id="span-error">Ocorreu um erro, tente novamente dentro de instantes.</span>
+                  </div>
+                </div>
               </div>
             </div>
             </div>
 
 <script>
   function regAgendamento(event){
-    console.log('deu');
     event.preventDefault()
 
     var data = document.getElementById("Data").value;
@@ -82,8 +90,30 @@
     axios.post('/api/reg-agenda', { data, hora, minutos, notas, Id})
       .then(function (res){
         console.log(res);
-        documento.getElementById('form1').reset();
+        document.getElementById('form1').reset();
+        document.getElementById('body').style.display = "none";
+        document.getElementById('message').style.display = "block";
+        function clodeModal(){
+          $('#agendaModal').modal('toggle');
+          document.getElementById('body').style.display = "block";
+          document.getElementById('message').style.display = "none";
+        }
+        setTimeout(clodeModal, 5000);
       })
-      .catch(err => console.log(err))
+      .catch(function (err){ 
+        console.log(err)
+        if(err.response.data == "Hora indisponível neste dia."){
+          document.getElementById('span-error').innerHTML = err.response.data;
+        } else{
+          document.getElementById('span-error').innerHTML = "Ocorreu um erro! Tente novamente dentro de instantes.";
+        }
+        document.getElementById('body').style.display = "none";
+        document.getElementById('message-error').style.display = "block";
+        function explode(){
+          document.getElementById('body').style.display = "block";
+          document.getElementById('message-error').style.display = "none";
+        }
+        setTimeout(explode, 3000);
+      })
     }
 </script>

@@ -12,33 +12,58 @@
               </button>
             </div>
             <div class="modal-body">
+
+
+              
             <form method="POST" action="{{url('/alter-user')}}">
               @csrf
-              <div class="form-group row">
-                <label for="staticContact" class="col-sm-2 col-form-label">Opções: </label>
-                <div class="col-sm-9" id="selectContainer">
-                  <select class="selService form-control col-sm-12 mb-3" id="sel" name="caracteristicas">
-                    @foreach($caracs as $carac)
-                    <option value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
-                    @endforeach
-                  </select>
+
+              {{-- Form group select / button --}}
+              <div class="row">
+                <div class="col-sm-11">
+                  <div class="row form-group mb-1">
+                    <div class="col-sm-2 text-right">
+                      <label for="staticContact" class="">Opções: </label>
+                    </div>
+                    <div class="col-sm-10" id="selectContainer">
+                      <select class="selService form-control mb-3" id="sel" name="caracteristicas">
+                        @foreach($caracs as $carac)
+                        <option value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div style="position: relative">
-                  <button onclick="cloneSelect()" class="btn btn-primary" type="button" style="position: absolute;bottom: 15px;width: 50px;">+</button>
+                <div class="col-sm-1">
+                  <button onclick="cloneSelect()" class="btn btn-primary" type="button" style="padding-right: 15px; padding-left:15px">+</button>
                 </div>
               </div>
+
+
+              {{-- Form group total --}}
               <div class="form-group row">
-                <label for="staticContact" class="col-sm-2 col-form-label">TOTAL: </label>
-                <div class="col-sm-10">
-                  @auth
-                    <input type="text" class="form-control" id="staticContact" name="total" readonly>
-                  @endauth
+                <div class="col-sm-11">
+                    <div class="row form-group mb-3">
+                        <div class="col-sm-2 text-right">
+                          <label for="staticContact">TOTAL: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            @auth
+                              <input type="text" class="form-control" id="staticContact" name="total" readonly>
+                            @endauth
+                        </div>
+                    </div>
                 </div>
-              </div>  
+                <div class="col"></div>
+              </div>
+
+              {{-- Modal Footer --}}
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
               </div>
+              {{-- End Modal footer --}}
+
             </form>
             </div>
           </div>
