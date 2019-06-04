@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Servico_Custom extends Model
+class ServicoCustom extends Model
 {
     public function caracteristica(){
         return $this::belongsToMany('App\Caracteristica');

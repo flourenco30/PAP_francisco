@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\models\User;
 use App\Caracteristica;
 use App\Servico;
+use App\ServicoCustom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -21,7 +22,8 @@ class HomePageController extends Controller
     {
         $caracs = Caracteristica::all();
         $servis = Servico::all();
-        return view('index', compact('caracs', 'servis'));
+        $servisC = ServicoCustom::all();
+        return view('index', compact('caracs', 'servis', 'servisC'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\models\User;
 use App\Caracteristica;
+use App\ServicoCustom;
 use App\Servico;
 use App\Agendamento;
 use Illuminate\Support\Facades\Auth;
@@ -119,7 +120,29 @@ class AgendamentoController extends Controller
 
     // Guardar serviço customizado
     function guardarServicoCustomizado(Request $request){
+        $input = $request->all();
 
+
+        $serviC = new ServicoCustom();
+        $serviC->Total    = $input['total'];
+        $serviC->user_id    = Auth::user()->id;
+
+        $serviC->save();
+
+        foreach($input['caratetisticas'] as $caracID){
+            $carac = Caracteristica::findOrFail($caracID);
+            if(!$serviC->caracteristica()->find($carac->id))
+            $serviC->caracteristica()->attach($carac->id);
+        }
         return response()->json($request);
+    }
+
+    // Eliminar serviço customizado
+    function destroyCustom($id){
+        // delete
+        $serviC = ServicoCustom::findOrFail($id);
+        $serviC->delete();
+
+        return Redirect::to('/');
     }
 }

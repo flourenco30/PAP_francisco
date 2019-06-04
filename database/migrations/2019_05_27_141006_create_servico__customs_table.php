@@ -13,7 +13,7 @@ class CreateServicoCustomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('servico__customs', function (Blueprint $table) {
+        Schema::create('servico_customs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('Total');
             $table->bigInteger('user_id')->unsigned();

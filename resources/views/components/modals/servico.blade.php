@@ -11,10 +11,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-
-
-              
+            <div class="modal-body" style="display: block;" id="body">
             <form method="POST" action="{{url('/alter-user')}}" id="form-save-custom-service">
               @csrf
 
@@ -65,6 +62,16 @@
               {{-- End Modal footer --}}
 
             </form>
+            <div class="modal-body" style="display: none;" id="message">
+                <div class="alert alert-success" role="alert">
+                    Sucesso! Serviço agendado
+                </div>
+              </div>
+              <div class="modal-body" style="display: none;" id="message-error">
+                <div class="alert alert-danger" role="alert">
+                    <span id="span-error">Ocorreu um erro, tente novamente dentro de instantes.</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +102,29 @@
             }
 
             axios.post('/api/servico-custom', data)
-            .then(res => console.log(res))
+            .then(function (res) {
+              console.log(res);
+              document.getElementById('form-save-custom-service').reset();
+              document.getElementById('body').style.display = "none";
+              document.getElementById('message').style.display = "block";
+              function clodeModal(){
+                $('#servicoModal').modal('toggle');
+                document.getElementById('body').style.display = "block";
+                document.getElementById('message').style.display = "none";
+              }
+              setTimeout(clodeModal, 5000);
+            })
+            .catch(function (err){ 
+              console.log(err)
+              document.getElementById('span-error').innerHTML = "Ocorreu um erro! Tente novamente dentro de instantes.";
+              document.getElementById('body').style.display = "none";
+              document.getElementById('message-error').style.display = "block";
+              function explode(){
+                document.getElementById('body').style.display = "block";
+                document.getElementById('message-error').style.display = "none";
+              }
+              setTimeout(explode, 3000);
+            })
 
           })
 
