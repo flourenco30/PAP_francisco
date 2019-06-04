@@ -233,9 +233,23 @@ function myFunction() {
 }
 
 
+function updateTotal(){
+  // update total
+  var total = 0;
+  $('.selService').each(function(){
+      var value = $('option:selected', this).attr('data-price');
+      total += parseFloat(value)
+  });
+
+  $('#totalPrice').val(total)
+}
+
+
 // Clone service select box
 var selectionCounter = 0
 function cloneSelect() {
+
+
   var select = document.getElementById("sel")
   var clone = select.cloneNode(true)
   if(selectionCounter<9){
@@ -243,6 +257,8 @@ function cloneSelect() {
   clone.id = name
   clone.setAttribute("name", name)
   document.getElementById("selectContainer").appendChild(clone)
+  updateTotal();
+
   }else{
     alert('Máximo de caracteristicas por serviço!');
   }    

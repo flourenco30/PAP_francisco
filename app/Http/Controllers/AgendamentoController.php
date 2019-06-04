@@ -115,4 +115,11 @@ class AgendamentoController extends Controller
     function registarAgendamento(Request $request){
         return response()->json($request->all(), 200);
     }
+
+
+    // Guardar serviço customizado
+    function guardarServicoCustomizado(Request $request){
+
+        return response()->json($request);
+    }
 }

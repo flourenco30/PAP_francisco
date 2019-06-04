@@ -107,5 +107,8 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+
+
+  @stack('scripts')
 </body>
 </html>

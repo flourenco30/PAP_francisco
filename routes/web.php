@@ -29,6 +29,8 @@ Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
 
 Route::post('/api/edit-carac', 'CaracteristicasController@update');
 
+Route::post('/api/servico-custom', 'AgendamentoController@guardarServicoCustomizado');
+
 Route::middleware(['admin'])->group(function(){
     //Caracteristicas Ações
     Route::get('/admin/caracteristicas/{caracteristica}/delete', function($carac){
