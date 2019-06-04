@@ -70,3 +70,10 @@
         </div>
       </div>
     </section>
+<script>
+  var Id=null;
+  function setAgendamento (id, nome){
+    Id = id;
+    document.getElementById("nome_servi").innerHTML=nome;
+  }
+</script> 

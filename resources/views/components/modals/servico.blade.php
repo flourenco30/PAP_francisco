@@ -17,7 +17,7 @@
               <div class="form-group row">
                 <label for="staticContact" class="col-sm-2 col-form-label">Opções: </label>
                 <div class="col-sm-9" id="selectContainer">
-                  <select class="selService form-control col-sm-12 mb-3" id="sel4" name="caracteristicas">
+                  <select class="selService form-control col-sm-12 mb-3" id="sel" name="caracteristicas">
                     @foreach($caracs as $carac)
                     <option value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
                     @endforeach

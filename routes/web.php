@@ -23,7 +23,6 @@ Route::post('/criar-carac', 'CaracteristicasController@store');
 
 Route::post('/criar-servi', 'ServicoController@store');
 
-
 Route::post('/api/reg-agenda', 'AgendamentoController@store');
 
 Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');

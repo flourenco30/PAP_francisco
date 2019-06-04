@@ -71,6 +71,7 @@
 
 <script>
   function regAgendamento(event){
+    console.log('deu');
     event.preventDefault()
 
     var data = document.getElementById("Data").value;
@@ -78,7 +79,7 @@
     var minutos = document.getElementById("minutos").value;
     var notas = document.getElementById("Notas").value;
 
-    axios.post('/api/reg-agenda', { data, hora, minutos, notas, Id })
+    axios.post('/api/reg-agenda', { data, hora, minutos, notas, Id})
       .then(function (res){
         console.log(res);
         documento.getElementById('form1').reset();
