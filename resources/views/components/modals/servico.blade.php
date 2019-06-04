@@ -15,7 +15,7 @@
 
 
               
-            <form method="POST" action="{{url('/alter-user')}}">
+            <form method="POST" action="{{url('/alter-user')}}" id="form-save-custom-service">
               @csrf
 
               {{-- Form group select / button --}}
@@ -26,9 +26,9 @@
                       <label for="staticContact" class="">Opções: </label>
                     </div>
                     <div class="col-sm-10" id="selectContainer">
-                      <select class="selService form-control mb-3" id="sel" name="caracteristicas">
+                      <select class="selService form-control mb-3" id="sel" name="caracteristicas" onChange="updateTotal()">
                         @foreach($caracs as $carac)
-                        <option value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
+                        <option data-price="{{ $carac->preco }}" value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
                         @endforeach
                       </select>
                     </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-sm-10">
                             @auth
-                              <input type="text" class="form-control" id="staticContact" name="total" readonly>
+                              <input type="text" class="form-control" id="totalPrice" name="total" value="" readonly>
                             @endauth
                         </div>
                     </div>
@@ -59,7 +59,7 @@
 
               {{-- Modal Footer --}}
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
               </div>
               {{-- End Modal footer --}}
@@ -69,3 +69,36 @@
           </div>
         </div>
       </div>
+
+      @push('scripts')
+        <script>
+
+          $(document).ready(function(){
+            updateTotal();
+          })
+
+          $('#form-save-custom-service').on('submit', function(e){
+            e.preventDefault();
+
+            // Receber ids das carateristicas das selects
+            var selects_values = [];
+            $('.selService').each(function(index, element){
+                var value = $(element).val();
+                selects_values.push(value)
+            });
+
+            var total = $('#totalPrice').val();
+
+            var data = {
+              total,
+              caratetisticas: selects_values
+            }
+
+            axios.post('/api/servico-custom', data)
+            .then(res => console.log(res))
+
+          })
+
+
+        </script>
+      @endpush
