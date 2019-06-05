@@ -44,9 +44,7 @@
                           <label for="staticContact">TOTAL: </label>
                         </div>
                         <div class="col-sm-10">
-                            @auth
-                              <input type="text" class="form-control" id="totalPrice" name="total" value="" readonly>
-                            @endauth
+                          <input type="text" class="form-control" id="totalPrice" name="total" readonly>
                         </div>
                     </div>
                 </div>

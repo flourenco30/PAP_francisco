@@ -76,26 +76,13 @@ class CaracteristicasController extends Controller
      */
     public function update($id)
     {
-        $rules = array(
-            'desc'       => 'required',
-            'preco'      => 'required|numeric',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-    
-        if ($validator->fails()) {
-            Session::flash('message', 'Erro ao atualizar a caracteristica!');
-            return Redirect::to('/admin');
-        } else {
             // store
-            $carac = Caracteristica::findOrFail($id);
-            $carac->desc       = Input::get('desc');
-            $carac->preco      = Input::get('preco');
+            $carac = Caracteristica::findOrFail(request()->Id);
+            $carac->desc       = request()->desc;
+            $carac->preco      = request()->preco;
             $carac->save();
 
-            // redirect
-            Session::flash('message', 'Caracteristica atualizada com sucesso!');
-            return Redirect::to('/admin');
-        }
+            return response()->json(['success' => true, 'message' => 'Caracteristica editada com sucesso.'], 201);
     }
 
     /**

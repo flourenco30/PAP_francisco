@@ -29,7 +29,9 @@ Route::post('/api/reg-agenda', 'AgendamentoController@store');
 
 Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
 
-Route::post('/api/edit-carac', 'CaracteristicasController@update');
+Route::post('/api/edit-carac/{id}', 'CaracteristicasController@update');
+
+Route::post('/api/edit-servi/{id}', 'ServicoController@update');
 
 Route::post('/api/servico-custom', 'AgendamentoController@guardarServicoCustomizado');
 

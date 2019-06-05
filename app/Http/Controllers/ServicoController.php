@@ -74,9 +74,15 @@ class ServicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        // store
+        $servi = Servico::findOrFail(request()->Id);
+        $servi->nome       = request()->nome;
+        $servi->preco      = request()->preco2;
+        $servi->save();
+
+        return response()->json(['success' => true, 'message' => 'Caracteristica editada com sucesso.'], 201);
     }
 
     /**

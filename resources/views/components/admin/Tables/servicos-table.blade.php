@@ -15,7 +15,10 @@
           </tr>
         </thead>
         <tbody>
+          @if(isset($servis))
+            <script>let servis = new Array();</script>
             @foreach($servis as $servi)
+            <script>servis[{{$servi->id}}] = {'Id':'{{$servi->id}}','nome':'{{$servi->nome}}', 'preco2':'{{$servi->preco}}'};</script>
             <tr>
               <th style="font-weight:normal;">{{$servi->id}}</th>
               <th style="font-weight:normal;">{{$servi->nome}}</th>
@@ -26,11 +29,12 @@
                   <a href="/admin/servicos/{{$servi->id}}/restore" class="btn btn-success mt-2" style="color: white;">Restaurar</a>
                 @else
                   <a href="/admin/servicos/{{$servi->id}}/delete" class="btn btn-warning" style="color: white;">Eliminar</a>
-                  <a class="btn btn-success" data-toggle="modal" data-target="#edit-modal" style="color: white;">Editar</a>
+                  <a class="btn btn-success" data-toggle="modal" onclick="editServi({{$servi->id}});" data-target="#edit-modal" style="color: white;">Editar</a>
                 @endif
               </th>
             </tr>
             @endforeach
+            @endif
         </tbody>
       </table>
     </div>
@@ -44,50 +48,86 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form method="POST" onsubmit="atualizarServi(event)" name="form1" id="form1">
+          <div class="modal-body" style="display: block;" id="body2">
+            <form method="POST" onsubmit="atualizarServi(event)" name="form1" id="form-servi">
+              @if(isset($servi))
               @csrf
                 <div class="form-group row">
                   <label for="labelDesc" class="col-sm-2 col-form-label">Descrição: </label>
                   <div class="col-sm-10">
                     @auth
-                      <input type="text" class="form-control" id="descri" value="{{$servi->nome}}">
+                      <input type="text" class="form-control" id="nome" value="">
                     @endauth
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Preço:</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="preco" required id="Data" value="{{$servi->preco}}">
+                    <input type="number" class="form-control" id="preco2" required value="">
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Atualizar</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
+                @endif
               </form>
+          </div>
+        <div class="modal-body" style="display: none;" id="message2">
+            <div class="alert alert-success" role="alert">
+                Sucesso! Serviço editado.
+            </div>
+          </div>
+          <div class="modal-body" style="display: none;" id="message-error2">
+            <div class="alert alert-danger" role="alert">
+                <span id="span-error">Ocorreu um erro, tente novamente dentro de instantes.</span>
+            </div>
           </div>
         </div>
       </div>
       </div>
 
 <script>
-  $(document).ready(function () {
-    $('#tabela-servi').DataTable();
-    $('.dataTables_length').addClass('bs-select');
-  });
+  let _id = null;
+  function editServi(id){
+    event.preventDefault()
+
+    console.log(servis[id]);
+    document.getElementById("nome").value = servis[id].nome;
+    document.getElementById("preco2").value = servis[id].preco2;
+    _id = id;
+  }
 
   function atualizarServi(event){
     event.preventDefault()
 
-    var desc = document.getElementById("descri").value;
-    var preco = document.getElementById("preco").value;
+    var nome = document.getElementById("nome").value;
+    var preco2 = document.getElementById("preco2").value;
 
-    axios.post('/api/edit-carac', { desc, preco })
+    axios.post('/api/edit-servi/'+_id, { Id: _id, nome, preco2 })
       .then(function (res){
         console.log(res);
-        documento.getElementById('form1').reset();
+        document.getElementById('form-servi').reset();
+        document.getElementById('body2').style.display = "none";
+        document.getElementById('message2').style.display = "block";
+        function clodeModal(){
+          $('#edit-modal').modal('toggle');
+          document.getElementById('body2').style.display = "block";
+          document.getElementById('message2').style.display = "none";
+          location.reload();
+        }
+        setTimeout(clodeModal, 5000);
       })
-      .catch(err => console.log(err))
-    }
+      .catch(function (err) {
+        console.log(err)
+        document.getElementById('span-error').innerHTML = "Ocorreu um erro! Tente novamente dentro de instantes.";
+        document.getElementById('body2').style.display = "none";
+        document.getElementById('message-error2').style.display = "block";
+        function explode(){
+          document.getElementById('body2').style.display = "block";
+          document.getElementById('message-error2').style.display = "none";
+        }
+        setTimeout(explode, 3000);
+      })
+  }
 </script>
