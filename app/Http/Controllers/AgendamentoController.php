@@ -125,7 +125,8 @@ class AgendamentoController extends Controller
 
         $serviC = new ServicoCustom();
         $serviC->Total    = $input['total'];
-        $serviC->user_id    = Auth::user()->id;
+        $userID = Auth::user()->id;
+        $serviC->user_id    = $userID;
 
         $serviC->save();
 

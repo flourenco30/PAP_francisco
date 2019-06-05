@@ -60,6 +60,15 @@
 						<input class="input100" type="password" name="password_confirmation" placeholder="Confirmar Password">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>					
 					</div>
+
+					
+					<div class="contact100-form-checkbox">
+						<a href="/login" class="label" style="text-decoration: none;color: white;">
+							Já tem conta? Entre aqui!
+						</a>
+					</div>
+
+					
 					<div class="container-login100-form-btn">
 							<a class="login100-form-btn" href="/" style="margin-right: 30px;text-decoration: none;">
 								Back

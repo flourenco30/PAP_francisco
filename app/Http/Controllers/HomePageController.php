@@ -22,7 +22,10 @@ class HomePageController extends Controller
     {
         $caracs = Caracteristica::all();
         $servis = Servico::all();
-        $servisC = ServicoCustom::all();
+        if(Auth::check()){
+            $userLog = Auth::user()->id;
+            $servisC = ServicoCustom::get()->where('user_id', $userLog);
+        }
         return view('index', compact('caracs', 'servis', 'servisC'));
     }
 

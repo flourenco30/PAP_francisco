@@ -55,6 +55,7 @@
             $postCount++;
             @endphp
             @endforeach
+            @auth
             @if(count($servisC) >0)
             @php
             $count = 1;
@@ -101,6 +102,7 @@
                 @endphp
                 @endforeach
                 @endif
+                @endauth
                 @auth
                 <div class="col-12 my_bt_custom">
                     <button id="btcustom" class="button btn-block btn-primary text-uppercase" data-toggle="modal" data-target="#servicoModal">Criar Serviço Personalizado</button>
