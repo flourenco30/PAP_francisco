@@ -11,8 +11,8 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <form method="POST" onsubmit="asscCarac(event)">
+            <div class="modal-body" id="body_assoc_carac">
+              <form method="POST" onsubmit="asscCarac(event)" id="form_assoc_carac">
                 @csrf
                   <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Serviço: </label>
@@ -45,6 +45,16 @@
                   </div>
                 </form>
             </div>
+            <div class="modal-body" style="display: none;" id="message_assoc_carac">
+              <div class="alert alert-success" role="alert">
+                  Sucesso! Caracteristica associada.
+              </div>
+            </div>
+            <div class="modal-body" style="display: none;" id="message_error_assoc_carac">
+              <div class="alert alert-danger" role="alert">
+                  <span id="span-error-custom">Ocorreu um erro, tente novamente dentro de instantes.</span>
+              </div>
+            </div>
           </div>
         </div>
         </div>
@@ -61,13 +71,29 @@
     });
 
     axios.post('/api/assoc-carac', { servico, checkedIds})
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    .then(function (res){
+      console.log(res);
+      document.getElementById('form_assoc_carac').reset();
+      document.getElementById('body_assoc_carac').style.display = "none";
+      document.getElementById('message_assoc_carac').style.display = "block";
+      function clodeModal(){
+        $('#serviCaracModal').modal('toggle');
+        document.getElementById('body_assoc_carac').style.display = "block";
+        document.getElementById('message_assoc_carac').style.display = "none";
+      }
+      setTimeout(clodeModal, 5000);
+    })
+    .catch(function (err){ 
+      console.log(err)
+      document.getElementById('span-error-custom').innerHTML = "Ocorreu um erro! Tente novamente dentro de instantes.";
+      document.getElementById('body_assoc_carac').style.display = "none";
+      document.getElementById('message_error_assoc_carac').style.display = "block";
+      function explode(){
+        document.getElementById('body_assoc_carac').style.display = "block";
+        document.getElementById('message_error_assoc_carac').style.display = "none";
+      }
+      setTimeout(explode, 3000);
+    })
+
   }
-
-
-
-  //   axios.post('/api/reg-agenda', { data, hora, minutos, notas, Id })
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
 </script>
