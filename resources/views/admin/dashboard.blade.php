@@ -28,6 +28,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="../css/styleadmin.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ mix('css/FullCalendar.css') }}">
 </head>
 
 <body>
@@ -52,6 +53,12 @@
     Tabela Caracteristicas
   ============================-->
   @include('components.admin.Tables.caracteristicas-table')
+
+  <div class="container mb-3">
+    <h1 style="text-align: center;margin-top: 10%;">CALENDÁRIO AGENDAMENTOS</h1>
+    <div id="calendar"></div>
+  </div>
+
 
   </main>
 
@@ -82,6 +89,7 @@
 
   <!-- JavaScript Libraries -->
   <script src="{{ mix('js/app.js') }}"></script>
+  <script src="{{ mix('js/FullCalendar.js') }}"></script>
   <script src="../lib/jquery/jquery-migrate.min.js"></script>
   <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../lib/easing/easing.min.js"></script>

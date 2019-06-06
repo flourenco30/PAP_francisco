@@ -4,7 +4,7 @@
   <div class="container">
     <h1 style="text-align: center;margin-top: 10%;">TABELA SERVIÇOS</h1>
     <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#serviModal">Criar Serviço</button>
-    <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#serviCaracModal">Associar Caracteristica</button>
+    <button type="button" class="btn btn-primary" style="margin-bottom: 30px;" data-toggle="modal" data-target="#serviCaracModal" onclick="getCaracteristicas(event)">Associar Caracteristica</button>
     <table class="table table-responsive table-striped" id="tabela-servi">
         <thead>
           <tr>
@@ -117,6 +117,35 @@
           location.reload();
         }
         setTimeout(clodeModal, 5000);
+      })
+      .catch(function (err) {
+        console.log(err)
+        document.getElementById('span-error').innerHTML = "Ocorreu um erro! Tente novamente dentro de instantes.";
+        document.getElementById('body2').style.display = "none";
+        document.getElementById('message-error2').style.display = "block";
+        function explode(){
+          document.getElementById('body2').style.display = "block";
+          document.getElementById('message-error2').style.display = "none";
+        }
+        setTimeout(explode, 3000);
+      })
+  }
+
+  function editServi(id){
+    event.preventDefault()
+
+    console.log(servis[id]);
+    document.getElementById("nome").value = servis[id].nome;
+    document.getElementById("preco2").value = servis[id].preco2;
+    _id = id;
+  }
+
+  function getCaracteristicas(event){
+    event.preventDefault()
+    axios.get('/api/servi-carac')
+      .then(function (res){
+        console.log(res);
+        document.getElementById('body2').innerHTML = "";
       })
       .catch(function (err) {
         console.log(err)

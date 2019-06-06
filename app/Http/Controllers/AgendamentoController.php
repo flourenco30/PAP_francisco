@@ -23,7 +23,7 @@ class AgendamentoController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(array_merge(Agendamento::with('servico', 'user')->get()->toArray(), AgendamentoCustom::with('servico','user')->get()->toArray()));
     }
 
     /**

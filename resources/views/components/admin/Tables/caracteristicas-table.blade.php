@@ -87,14 +87,14 @@
       </div>
 
 <script>
-  let _id = null;
+  let carateristica_id = null;
   function editCarac(id){
     event.preventDefault()
 
     console.log(caracs[id]);
     document.getElementById("descri").value = caracs[id].descricao;
     document.getElementById("preco-carac").value = caracs[id].preco;
-    _id = id;
+    carateristica_id = id;
   }
 
   function atualizarCarac(event){
@@ -103,7 +103,7 @@
     var desc = document.getElementById("descri").value;
     var preco = document.getElementById("preco-carac").value;
 
-    axios.post('/api/edit-carac/'+_id, { Id: _id, desc, preco })
+    axios.post('/api/edit-carac/'+carateristica_id, { Id: carateristica_id, desc, preco })
       .then(function (res){
         console.log(res);
         document.getElementById('form-carac').reset();

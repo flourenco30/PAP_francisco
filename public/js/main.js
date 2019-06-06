@@ -255,10 +255,9 @@ function cloneSelect() {
   if(selectionCounter<9){
   var name = select.getAttribute("name") + selectionCounter++
   clone.id = name
-  clone.setAttribute("name", name)
+  clone.setAttribute("name", name,)
   document.getElementById("selectContainer").appendChild(clone)
   updateTotal();
-
   }else{
     alert('Máximo de caracteristicas por serviço!');
   }    
