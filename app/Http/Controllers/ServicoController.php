@@ -102,7 +102,18 @@ class ServicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function assocCaracStore(Request $request)
+    public function assocCaracStore()
+    {
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getCaracServi(Request $request)
     {
         $input = $request->all();
 

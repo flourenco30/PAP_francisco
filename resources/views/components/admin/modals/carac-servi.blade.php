@@ -31,7 +31,7 @@
                       <div class="input-group mb-3" name="carac" id="carac">
                         <div class="input-group-prepend">
                           <div class="input-group-text">
-                          <input class="caracteristica" id="{{$carac->id}}" type="checkbox" aria-label="Radio button for following text input">
+                          <input class="caracteristica" id="carac-{{$carac->id}}" type="checkbox" aria-label="Radio button for following text input">
                           </div>
                         </div>
                         <p class="form-control">{{$carac->preco . '€ - ' . $carac->desc}}</p>
