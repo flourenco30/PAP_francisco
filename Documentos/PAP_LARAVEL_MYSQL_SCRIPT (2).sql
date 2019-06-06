@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 04-Jun-2019 às 17:52
+-- Generation Time: 06-Jun-2019 às 17:06
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.2.17
 
@@ -32,12 +32,46 @@ CREATE TABLE `agendamentos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `Data` date NOT NULL,
   `Hora` time NOT NULL,
-  `Notas` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Notas` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `servi_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `agendamentos`
+--
+
+INSERT INTO `agendamentos` (`id`, `Data`, `Hora`, `Notas`, `user_id`, `servi_id`, `created_at`, `updated_at`) VALUES
+(2, '2019-06-07', '19:00:00', 'sdfsdff', 1, 1, '2019-06-05 23:00:00', '2019-06-05 23:00:00'),
+(4, '2019-06-19', '11:00:00', NULL, 1, 5, '2019-06-06 07:46:29', '2019-06-06 07:46:29'),
+(5, '2019-06-21', '12:00:00', NULL, 1, 5, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `agendamento_customs`
+--
+
+CREATE TABLE `agendamento_customs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `Data` date NOT NULL,
+  `Hora` time NOT NULL,
+  `Notas` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `servico_custom_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `agendamento_customs`
+--
+
+INSERT INTO `agendamento_customs` (`id`, `Data`, `Hora`, `Notas`, `user_id`, `servico_custom_id`, `created_at`, `updated_at`) VALUES
+(2, '2019-06-25', '11:00:00', NULL, 1, 3, '2019-06-06 13:32:14', '2019-06-06 13:32:14'),
+(3, '2019-06-28', '15:00:00', NULL, 2, 4, '2019-06-06 13:44:49', '2019-06-06 13:44:49');
 
 -- --------------------------------------------------------
 
@@ -59,7 +93,9 @@ CREATE TABLE `caracteristicas` (
 --
 
 INSERT INTO `caracteristicas` (`id`, `desc`, `preco`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Lavagem Manual', 20, NULL, NULL, NULL);
+(1, 'Lavagem Manual', 20, '2019-06-06 06:57:00', '2019-06-06 06:57:00', NULL),
+(2, 'Hidratante Pneus', 5, '2019-06-06 07:54:04', '2019-06-06 07:54:04', NULL),
+(3, 'Limpeza Vidros', 5, '2019-06-06 10:06:38', '2019-06-06 10:06:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,6 +110,16 @@ CREATE TABLE `caracteristica_servico` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `caracteristica_servico`
+--
+
+INSERT INTO `caracteristica_servico` (`id`, `caracteristica_id`, `servico_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, NULL, NULL),
+(2, 1, 2, NULL, NULL),
+(3, 2, 1, NULL, NULL),
+(4, 3, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,9 +140,11 @@ CREATE TABLE `caracteristica_servico_custom` (
 --
 
 INSERT INTO `caracteristica_servico_custom` (`id`, `caracteristica_id`, `servico_custom_id`, `created_at`, `updated_at`) VALUES
-(3, 1, 3, NULL, NULL),
-(4, 1, 4, NULL, NULL),
-(5, 1, 5, NULL, NULL);
+(4, 1, 3, NULL, NULL),
+(5, 2, 3, NULL, NULL),
+(6, 1, 4, NULL, NULL),
+(7, 2, 4, NULL, NULL),
+(8, 3, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -125,7 +173,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2019_05_27_141250_create_caracterisitcas_servico_custom_table', 1),
 (9, '2019_05_30_133621_add_column_deleted_at_to_servico_table', 1),
 (10, '2019_05_30_133735_add_column_deleted_at_to_caracteristicas_table', 1),
-(11, '2019_05_30_133754_add_column_deleted_at_to_users_table', 1);
+(11, '2019_05_30_133754_add_column_deleted_at_to_users_table', 1),
+(12, '2019_06_06_075358_create_agendamento_customs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -159,12 +208,12 @@ CREATE TABLE `servicos` (
 --
 
 INSERT INTO `servicos` (`id`, `nome`, `preco`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Basic', 25, NULL, NULL, NULL),
-(2, 'Standard', 35, NULL, NULL, NULL),
-(3, 'Advanced', 85, NULL, NULL, NULL),
-(4, 'Basic Moto', 0, NULL, NULL, NULL),
+(1, 'Basic', 25, '2019-06-06 06:56:54', '2019-06-06 06:56:54', NULL),
+(2, 'Standard', 40, NULL, NULL, NULL),
+(3, 'Advanced', 70, NULL, NULL, NULL),
+(4, 'Basic Moto', 10, NULL, NULL, NULL),
 (5, 'Mudança Óleo', 45, NULL, NULL, NULL),
-(6, 'Mudança Óleo/Filtros', 85, NULL, NULL, NULL);
+(6, 'Mudança Óleo/Filtros', 90, NULL, '2019-06-06 10:07:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -185,9 +234,8 @@ CREATE TABLE `servico_customs` (
 --
 
 INSERT INTO `servico_customs` (`id`, `Total`, `user_id`, `created_at`, `updated_at`) VALUES
-(3, 20, 1, '2019-06-04 14:50:04', '2019-06-04 14:50:04'),
-(4, 20, 1, '2019-06-04 14:50:43', '2019-06-04 14:50:43'),
-(5, 20, 1, '2019-06-04 14:51:14', '2019-06-04 14:51:14');
+(3, 25, 1, '2019-06-06 10:07:39', '2019-06-06 10:07:39'),
+(4, 30, 2, '2019-06-06 13:44:34', '2019-06-06 13:44:34');
 
 -- --------------------------------------------------------
 
@@ -214,7 +262,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `contacto`, `nif`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@ferreira-auto.pt', NULL, '$2y$10$nB6rvAc1922R6LTAnOcfz.J7NJyja4P6ERGibzbUe9KbmZ8.SsAmu', NULL, NULL, NULL, '2019-06-04 14:27:34', '2019-06-04 14:27:34', NULL);
+(1, 'Admin', 'admin@ferreira-auto.pt', NULL, '$2y$10$rUeb6315ujwjKPYsJgY.lu9ktv1BfIGfR9y6IDGfMrxs/mIiGPMTe', NULL, NULL, NULL, '2019-06-06 06:56:38', '2019-06-06 06:56:38', NULL),
+(2, 'Francisco Lourenço', 'ffl@gmail.com', NULL, '$2y$10$XF5SAGRjVE4HHeIfb0mI6.6fWotG6gTTUVgDK2qJQG002x0OL5CO6', NULL, NULL, NULL, '2019-06-06 13:44:23', '2019-06-06 13:44:23', NULL);
 
 --
 -- Indexes for dumped tables
@@ -227,6 +276,14 @@ ALTER TABLE `agendamentos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `agendamentos_user_id_foreign` (`user_id`),
   ADD KEY `agendamentos_servi_id_foreign` (`servi_id`);
+
+--
+-- Indexes for table `agendamento_customs`
+--
+ALTER TABLE `agendamento_customs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agendamento_customs_user_id_foreign` (`user_id`),
+  ADD KEY `agendamento_customs_servico_custom_id_foreign` (`servico_custom_id`);
 
 --
 -- Indexes for table `caracteristicas`
@@ -290,31 +347,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agendamentos`
 --
 ALTER TABLE `agendamentos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `agendamento_customs`
+--
+ALTER TABLE `agendamento_customs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `caracteristicas`
 --
 ALTER TABLE `caracteristicas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `caracteristica_servico`
 --
 ALTER TABLE `caracteristica_servico`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `caracteristica_servico_custom`
 --
 ALTER TABLE `caracteristica_servico_custom`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `servicos`
@@ -326,13 +389,13 @@ ALTER TABLE `servicos`
 -- AUTO_INCREMENT for table `servico_customs`
 --
 ALTER TABLE `servico_customs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -344,6 +407,13 @@ ALTER TABLE `users`
 ALTER TABLE `agendamentos`
   ADD CONSTRAINT `agendamentos_servi_id_foreign` FOREIGN KEY (`servi_id`) REFERENCES `servicos` (`id`),
   ADD CONSTRAINT `agendamentos_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Limitadores para a tabela `agendamento_customs`
+--
+ALTER TABLE `agendamento_customs`
+  ADD CONSTRAINT `agendamento_customs_servico_custom_id_foreign` FOREIGN KEY (`servico_custom_id`) REFERENCES `servico_customs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `agendamento_customs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Limitadores para a tabela `caracteristica_servico`
