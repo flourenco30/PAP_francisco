@@ -62,7 +62,7 @@
           </div>
             <div class="modal-body" style="display: none;" id="message1">
               <div class="alert alert-success" role="alert">
-                  Sucesso! Serviço agendado
+                  Sucesso! Serviço criado, Obrigado.
               </div>
             </div>
             <div class="modal-body" style="display: none;" id="message-error1">

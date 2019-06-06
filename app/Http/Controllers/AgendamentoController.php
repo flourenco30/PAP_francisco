@@ -8,6 +8,7 @@ use App\Caracteristica;
 use App\ServicoCustom;
 use App\Servico;
 use App\Agendamento;
+use App\AgendamentoCustom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -145,5 +146,32 @@ class AgendamentoController extends Controller
         $serviC->delete();
 
         return Redirect::to('/');
+    }
+
+    public function regAgendamentoCustom(Request $request)
+    {        
+        $input = $request->all();
+        $validatedData = $request->validate([
+            'data_custom' => 'required|date|after:yesterday',
+            'hora_custom' => 'required|numeric|min:8|max:18',
+            'minutos_custom' => ['required', 'numeric', new Exact],
+        ]);
+
+        
+        
+        $agenda = new AgendamentoCustom();
+        $agenda->Data    = $validatedData['data_custom'];
+        $agenda->Hora    = $validatedData['hora_custom'].':'.$validatedData['minutos_custom'].':'.'00';
+        $agenda->Notas   = $request['notas_custom'];
+        $agenda->user_id = Auth::user()->id;
+        $agenda->servico_custom_id = ServicoCustom::findOrFail($request['Id'])->id;
+
+        if($agenda->livre($agenda->Data, $agenda->Hora) == false){
+            return response()->json('Hora indisponível neste dia.', 403);
+        }
+
+        $agenda->save();
+
+        return response()->json(['success' => true, 'message' => 'Agendamento marcado com sucesso.'], 201);
     }
 }

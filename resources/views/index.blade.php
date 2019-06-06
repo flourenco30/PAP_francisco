@@ -73,6 +73,11 @@
       Modal Form Agendamento
   ================================-->
   @include('components.modals.agendamento')
+  
+  <!--===============================
+      Modal Form Agendamento Custom
+  ================================-->
+  @include('components.modals.agendamento_custom')
 
   <!--===============================
       Modal Form Perfil

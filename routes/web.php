@@ -27,6 +27,8 @@ Route::get('/api/eliminar-custom/{servicustom}', 'AgendamentoController@destroyC
 
 Route::post('/api/reg-agenda', 'AgendamentoController@store');
 
+Route::post('/api/reg-agenda-custom', 'AgendamentoController@regAgendamentoCustom');
+
 Route::post('/api/assoc-carac', 'ServicoController@assocCaracStore');
 
 Route::post('/api/edit-carac/{id}', 'CaracteristicasController@update');

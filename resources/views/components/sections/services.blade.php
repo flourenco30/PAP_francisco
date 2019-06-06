@@ -88,7 +88,7 @@
                             <li><span class="fa-li"><i class="fas fa-check"></i></span>{{$carac->desc}}</li>
                           @endif
                         @endforeach
-                      <a class="btn-agendar-custom btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaModal" onclick="setAgendamento({{$serviC->id}}, '{{$serviC->nome}}')">AGENDAR</a>
+                      <a class="btn-agendar-custom btn-primary text-uppercase text-light" data-toggle="modal" data-target="#agendaCustomModal" onclick="setAgendamentoCustom({{$serviC->id}})">AGENDAR</a>
                       <a href="/api/eliminar-custom/{{$serviC->id}}" class="btn-eliminar btn-primary text-uppercase text-light">ELIMINAR</a>
                     </div>
                   </div>
@@ -123,5 +123,8 @@
   function setAgendamento (id, nome){
     Id = id;
     document.getElementById("nome_servi").innerHTML=nome;
+  }
+  function setAgendamentoCustom (id){
+    Id = id;
   }
 </script> 

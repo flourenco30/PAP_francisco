@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAgendamentosTable extends Migration
+class CreateAgendamentoCustomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateAgendamentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('agendamentos', function (Blueprint $table) {
+        Schema::create('agendamento_customs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('Data');
             $table->time('Hora');
             $table->string('Notas')->nullable();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('servi_id')->unsigned();
+            $table->bigInteger('servico_custom_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('servi_id')->references('id')->on('servicos');
+            $table->foreign('servico_custom_id')->references('id')->on('servico_customs')->onDelete('cascade');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateAgendamentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agendamentos');
+        Schema::dropIfExists('agendamento_customs');
     }
 }
