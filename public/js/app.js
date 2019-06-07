@@ -5588,7 +5588,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this._element = element;
-      this._scrollElement = element.tagName === 'body' ? window : element;
+      this._scrollElement = element.tagName === 'BODY' ? window : element;
       this._config = this._getConfig(config);
       this._selector = this._config.target + " " + Selector$8.NAV_LINKS + "," + (this._config.target + " " + Selector$8.LIST_ITEMS + ",") + (this._config.target + " " + Selector$8.DROPDOWN_ITEMS);
       this._offsets = [];

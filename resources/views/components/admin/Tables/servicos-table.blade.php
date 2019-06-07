@@ -143,12 +143,9 @@
   function getCaracteristicas(event){
     event.preventDefault()
 
-    var 
-
     axios.get('/api/servi-carac/'+Id)
       .then(function (res){
         console.log(res);
-        document.getElementById('body2').innerHTML = "";
       })
       .catch(function (err) {
         console.log(err)

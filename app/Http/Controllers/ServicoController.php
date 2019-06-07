@@ -102,9 +102,15 @@ class ServicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function assocCaracStore()
-    {
-        
+    public function assocCaracStore(Request $request){
+        $input = $request->all();
+        $servico = Servico::findOrFail($input['servico']);
+        foreach($input['checkedIds'] as $checkedId){
+            $carac = Caracteristica::findOrFail($checkedId);
+            if(!$servico->caracteristica()->find($carac->id))
+            $servico->caracteristica()->attach($carac->id);
+        }
+        $servico->save();
     }
 
     /**
@@ -113,18 +119,8 @@ class ServicoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getCaracServi(Request $request)
+    public function getCaracServi($id)
     {
-        $input = $request->all();
-
-        $servico = Servico::findOrFail($input['servico']);
-
-        foreach($input['checkedIds'] as $checkedId){
-            $carac = Caracteristica::findOrFail($checkedId);
-            if(!$servico->caracteristica()->find($carac->id))
-            $servico->caracteristica()->attach($carac->id);
-        }
-
-        $servico->save();
+        
     }
 }

@@ -104,9 +104,11 @@
                 @endif
                 @endauth
                 @auth
+                @if(count($servisC) < 3)
                 <div class="col-12 my_bt_custom">
                     <button id="btcustom" class="button btn-block btn-primary text-uppercase" data-toggle="modal" data-target="#servicoModal">Criar Serviço Personalizado</button>
                 </div>
+                @endif
                 @endauth
               </div>
               </div>

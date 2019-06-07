@@ -246,7 +246,7 @@ function updateTotal(){
 
 
 // Clone service select box
-var selectionCounter = 0
+var selectionCounter = 1
 function cloneSelect() {
 
 
