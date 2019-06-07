@@ -22,16 +22,17 @@
                       <label for="staticContact" class="">Opções: </label>
                     </div>
                     <div class="col-sm-10" id="selectContainer">
-                      <select class="selService form-control mb-3" id="sel" name="caracteristicas" onChange="updateTotal()">
+                      <select class="selService form-control mb-3" id="caracteristica0" name="caracteristicas" onChange="updateTotal()" placeholder="--Selecione uma opção--" >
                         @foreach($caracs as $carac)
-                        <option data-price="{{ $carac->preco }}" value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
+                        <option data-price="{{ $carac->preco }}"value={{$carac->id}}>{{$carac->preco}}€ - {{$carac->desc}}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-1">
-                  <button onclick="cloneSelect()" class="btn btn-primary" type="button" style="padding-right: 15px; padding-left:15px">+</button>
+                  <button onclick="cloneSelect()" class="btn btn-primary mb-3" type="button" style="padding-right: 15px; padding-left:15px; display: block" id="button-plus">+</button>
+                  <button onclick="removeSelect()" class="btn btn-primary" type="button" style="padding-right: 15px; padding-left:15px; display: none" id="button-less">-</button>
                 </div>
               </div>
 

@@ -246,21 +246,38 @@ function updateTotal(){
 
 
 // Clone service select box
-var selectionCounter = 1
+var selectionCounter = 0
 function cloneSelect() {
 
 
-  var select = document.getElementById("sel")
-  var clone = select.cloneNode(true)
-  if(selectionCounter<9){
-  var name = select.getAttribute("name") + selectionCounter++
-  clone.id = name
-  clone.setAttribute("name", name,)
-  document.getElementById("selectContainer").appendChild(clone)
-  updateTotal();
+  var select = document.getElementById("caracteristica"+selectionCounter)
+  let tmp = selectionCounter;
+  tmp++
+  if(selectionCounter<9 && select != null && tmp<select.childElementCount){
+    var clone = select.cloneNode(true)
+    select.setAttribute("disabled", true)
+    clone[select.selectedIndex].setAttribute("disabled", "true")
+    selectionCounter++
+    var name = "caracteristica" + selectionCounter
+    clone.id = name
+    clone.setAttribute("id", name,)
+    clone.children[selectionCounter].setAttribute('selected', 'true')
+    console.log(clone)
+    document.getElementById("selectContainer").appendChild(clone)
+    updateTotal();
+    document.getElementById("button-less").style.display = "block";
   }else{
+    document.getElementById("button-plus").style.display = "none";
     alert('Máximo de caracteristicas por serviço!');
   }    
+}
+
+function removeSelect() {
+  let tmp = document.getElementById("selectContainer")
+  if(tmp.childNodes[selectionCounter]){
+    tmp.removeChild(tmp.childNodes[selectionCounter]);
+    document.getElementById("button-plus").style.display = "block";  
+  }
 }
 
 
