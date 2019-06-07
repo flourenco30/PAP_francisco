@@ -45,6 +45,7 @@
         <div class="hero-container">
           <h1 id="titulo">Ferreira <span style="color: #0099ff">Auto</span></h1>
           <h2>Nós somos uma empresa especializada em serviços de lavagem automóvel.</h2>
+          <h4 style="color: white;-webkit-text-stroke: .5px #000;font-weight: 900;">Agende Já!</h4><i class="fas fa-arrow-down fa-3x mb-3" style="color: #0099ff;-webkit-text-stroke: .5px white;"></i>
           <a href="#servicos" class="btn-get-started">Agendar Serviço</a>
         </div>
       </section><!-- #hero -->
