@@ -9,6 +9,7 @@ use App\Servico;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
+use Illuminate\Pagination\Paginator;
 
 class AdminController extends Controller
 {
@@ -19,9 +20,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::withTrashed()->get();
-        $caracs = Caracteristica::withTrashed()->get();
-        $servis = Servico::withTrashed()->get();
+        $users = User::withTrashed()->paginate(5,['*'], 'users');
+        $caracs = Caracteristica::withTrashed()->paginate(5,['*'], 'caracs');
+        $servis = Servico::withTrashed()->paginate(5,['*'], 'servis');
         return view('admin.dashboard', compact('users', 'caracs', 'servis'));
     }
 

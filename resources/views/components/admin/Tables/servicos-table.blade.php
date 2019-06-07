@@ -36,6 +36,7 @@
             @endforeach
             @endif
         </tbody>
+        {{$servis->links()}}
       </table>
     </div>
 
