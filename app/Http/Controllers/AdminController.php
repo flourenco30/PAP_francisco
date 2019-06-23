@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::withTrashed()->paginate(5,['*'], 'users');
-        $caracs = Caracteristica::withTrashed()->paginate(5,['*'], 'caracs');
+        $caracs = Caracteristica::withTrashed()->get();
         $servis = Servico::withTrashed()->paginate(5,['*'], 'servis');
         return view('admin.dashboard', compact('users', 'caracs', 'servis'));
     }

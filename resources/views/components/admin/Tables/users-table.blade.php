@@ -33,10 +33,10 @@
               <th style="font-weight:normal; width: 20%;">
                 @if($user->deleted_at)
                   <a href="/admin/users/{{$user->id}}/force-delete" class="btn btn-danger" style="color: white;">Forçar Eliminar</a>
-                  <a href="/admin/users/{{$user->id}}/restore" class="btn btn-success mt-2" style="color: white;">Restaurar</a>
+                  <a href="/admin/users/{{$user->id}}/restore" class="btn btn-success mt-2" style="color: white;">Reactivar</a>
                 @else
                   @if($user->id != 1)
-                  <a href="/admin/users/{{$user->id}}/delete" class="btn btn-warning" style="color: white;">Eliminar</a>
+                  <a href="/admin/users/{{$user->id}}/delete" class="btn btn-warning" style="color: white;">Desativar</a>
                   @endif
                 @endif
               </th>

@@ -35,7 +35,6 @@
             @endforeach
             @endif
         </tbody>
-        {{$caracs->links()}}
       </table>
     </div>
     
