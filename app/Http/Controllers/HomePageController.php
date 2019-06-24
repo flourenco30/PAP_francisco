@@ -25,8 +25,9 @@ class HomePageController extends Controller
         if(Auth::check()){
             $userLog = Auth::user()->id;
             $servisC = ServicoCustom::get()->where('user_id', $userLog);
+            return view('index', compact('caracs', 'servis', 'servisC'));
         }
-        return view('index', compact('caracs', 'servis', 'servisC'));
+        return view('index', compact('caracs', 'servis'));
     }
 
     /**

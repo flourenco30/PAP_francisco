@@ -8,10 +8,10 @@
       <div class="col-lg-10 content order-lg-1 order-2">
         <h2 class="title">Sobre nós!</h2>
         <p style="text-align: justify;">
-          <span style="text-shadow: 0.5px 0.5px #111;">Ferreira<span style="color: #0099ff">Auto</span></span> é uma
-          empresa
-          especializada em limpeza de veículos (carros e motos), aspiração e mudança de oleo e filtros. A nossa
-          tecnologia não só
+          <span style="text-shadow: 0.5px 0.5px #111;">Ferreira<span style="color: #0099ff">Auto</span></span> é um
+          estabelecimento
+          especializado em limpeza de veículos (carros e motos) e mudança de oleo e filtros. A nossa
+          tecnologia, "FerreiraClean", não só
           limpa, mas também esteriliza e desodoriza, matando todas as bactérias e germes que causam mau odor, e é menos
           agressiva
           para as viaturas. Contacte-nos para mais informações ou agende já a lavagem da sua viatura!
